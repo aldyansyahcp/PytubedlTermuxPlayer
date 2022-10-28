@@ -1,9 +1,10 @@
 # PytubedlTermuxPlayer
 ```
-before you run this script maks sure
+before you run this script make sure
 Install Termux-api from F-Droid first and accept acces for sdcard
 $termux-setup-storage -y
 $pkg install termux-api
+$pip3 install -r requirements.txt
 $python3 yts.py
 For media player just work from termux 
 Pytube Downloader && Termux Media Player
