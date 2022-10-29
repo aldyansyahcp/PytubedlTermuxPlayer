@@ -15,7 +15,6 @@ def pllayed():
             os.popen("termux-media-player play \""+i+"\"")
             subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
             subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
-            playy()
             for i in range(limit()):
                 time.sleep(1)
 def frayed():
@@ -28,7 +27,6 @@ def frayed():
             os.popen("termux-media-player play \""+i+"\"")
             subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
             subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
-            playy()
             for i in range(limit()):
                 time.sleep(1)
 
@@ -46,7 +44,7 @@ def limit():
 
 def getlists():
     if getlastm():
-        os.system("termux-media-player stop")
+        os.system("termux-media-player play")
         if os.path.exists("source/lists/mp3.list"):
             os.system("clear")
             runn()
@@ -155,8 +153,8 @@ def playy():
                     loop (number): looping music from number start
                 """)
     except KeyboardInterrupt:
-        print("thank you!! \n\t termux-media-player stop for stop the music")
+        print("thank you!! \n\t termux-media-player pause")
         exit()
-        os.system("termux-media-player stop")
+        os.system("termux-media-player pause")
     except IndexError:    
         print("\n\n\tYour input out of range")
