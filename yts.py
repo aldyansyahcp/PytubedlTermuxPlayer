@@ -1,3 +1,4 @@
+#coding=utf-8
 #aldyansyahcp
 #mulai gawene mbuh kapan lali cok
 #yagitulah
@@ -10,13 +11,13 @@
 #thanks for me, for anything about myself, illbe stay standing in here
 import pytube, time
 from os import system as ss
-from source.ytdownload import dlaud, dlvid
+from source.ytdownload import dlaud, dlvid, played
 from source.ply import plls
 from source.pplay import getlists
 
 def searc(q):
     s = pytube.Search(q)
-    s.results;n=1#;s.get_next_results()
+    s.results;n=1;s.get_next_results()
     global link
     link = []
     for n,i in enumerate(s.results,start=1):
@@ -66,7 +67,7 @@ def main():
             sp = input("\n\n\tCari lagu apa? ")
             searc(sp)
         elif d == 4:
-            getlists()
+            played()
         else:
             print("\nYour input out of range")
             time.sleep(2)

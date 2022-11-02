@@ -1,7 +1,7 @@
 from requests import get
 from pytube import YouTube as yt
 import os,time
-from source.pplay import scann
+from source.pplay import getlists
 
 def dlaud(url):
     yu = yt(url)
@@ -11,7 +11,17 @@ def dlaud(url):
         nam = nam.replace(i, "")
     aul.download(output_path="/sdcard/Download/audio",filename=nam)
     print("Berhasil Download, file saved in /sdcard/Download/audio")
-    played()
+    p = input("Want to play music?y/n: ").lower()
+    if p == "y":
+        if os.path.isfile(os.environ["PREFIX"]+"/bin/termux-media-player"):
+            os.system("termux-media-player play /sdcard/Download/audio/"+nam)
+            print("Trying to run music plauer\ninput resc to scan new file downloaded")
+            time.sleep(3)
+            played()
+    else:
+        print("\tTermux media player not installed \n\tYou must install termux-api from F-Droid")
+        time.sleep(3)
+        os.system("python3 yts.py")
     """rr = get(ul, stream=True); print(rr)
     if rr.status_code == 200:
         #print(f"File size: {bytesto(fz, 'm')}Mb")
@@ -26,15 +36,17 @@ def dlaud(url):
         print("gagal")"""
         
 def played():
-    pl = input("Want to play this music? y/n ").lower()
-    if pl == "y":
-        print("TERMUX-API REQUIRED")
+        print("\n\t---TERMUX-API REQUIRED---")
         if not os.path.isfile(os.environ["PREFIX"]+"/bin/termux-media-player"):
             print("You must install Termux-Api\n install from F-Droid")
-            os.system("pkg install termux-api")
-            exit()
+            pp = input("Want to Install termux-api? y/n").lower()
+            if pp == "y":
+                url = "https://f-droid.org/repo/com.termux.api_51.apk"; print(url,"Install termux-api & /n input command $termux-setup-storage Accept acces sdcard")
+                os.system("xdg-open "+url)
+            else:
+                os.system("python3 yts.py")
         else:
-            scann()
+            getlists()
             
 def dlvid(url):
     yu = yt(url)

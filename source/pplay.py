@@ -153,8 +153,8 @@ def playy():
                     loop (number): looping music from number start
                 """)
     except KeyboardInterrupt:
-        print("thank you!! \n\t termux-media-player pause")
-        exit()
+        print("thank you!! \n\t termux-media-player ")
         os.system("termux-media-player pause")
+        exit()
     except IndexError:    
         print("\n\n\tYour input out of range")
