@@ -1,10 +1,52 @@
 import os, subprocess
 import sys, re, time
-from source.cek import pllayed
+
+global nomer
+nomer = []
+def pllayed():
+    if nomer[0].isdigit():
+        print("="*60)
+        print("\n\n\tPlaying music loop\n\tCTRL+C for exit\n\tMusic is looping now\n\n")
+        print("="*60)
+        for i in baca()[int(nomer[0])-1:]:
+            nomer.clear()
+            print("\nTime sleep",limit())
+            print(f"Played music start from {i}\nto last music {baca()[len(baca())-1]}")
+            os.popen("termux-media-player play \""+i+"\"")
+            subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
+            subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
+            for i in range(limit()):
+                time.sleep(1)
+            playy()
+def frayed():
+        print("="*60)
+        print("\n\n\tPlaying music loop\n\tCTRL+C for exit\n\tMusic is looping now\n\n")
+        print("="*60)
+        for i in baca():
+            print("Time sleep",limit())
+            print(f"Played music from {i} \nto last music {baca()[len(baca())-1]}")
+            os.popen("termux-media-player play \""+i+"\"")
+            subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
+            subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
+            for i in range(limit()):
+                time.sleep(1)
+        playy()
+
+def limit():
+    f = open("source/lists/info.xx", "r").read()
+    dd = f.split("\n")
+    es = dd[2].split("/")
+    fn = es[1].split(":")
+    times = int(fn[1])
+    for i in range(100):
+        if int(fn[0]) == i:
+            times+=60*i
+            break
+    return times
 
 def getlists():
     if getlastm():
-        os.system("termux-media-player stop")
+        os.system("termux-media-player play")
         if os.path.exists("source/lists/mp3.list"):
             os.system("clear")
             runn()
@@ -21,7 +63,7 @@ def scann():
         os.system("find -L /storage/sdcard1 -type f -ipath '*.mp3' >>source/list/mp3.list")
         print("scan compeleto")
     input("Please enter to continued...")
-    runn()                                                                                 
+    runn()  
     sorted()
 
 def getlastm():
@@ -65,7 +107,7 @@ def playy():
     try:
         pp = True
         while pp:
-            print("""\n\n
+            print("""
             ▀█▀ █▀█ █▀█ █░░ ▄▀█ █▄█
             ░█░ █▀▄ █▀▀ █▄▄ █▀█ ░█░
             22-oct-22{aldyansyahcp}
@@ -73,10 +115,10 @@ def playy():
             """)
             for n,i in enumerate(runn(),start=1):
                 print(f"{n}. {i}")
-            pil = input("\ntype help for command\n\n\tPilih nomornya untuk memutar/enter the number for play: ")
+            pil = input("\ntype help for command\n\n\tenter the number for play music: ")
+            os.system("clear")
             if pil.isdigit():
-                os.system("clear")
-                os.system("rm source/lists/info.xx")
+                os.system("rm souece/lists/info.xx")
                 os.popen("termux-media-player play \""+str(baca()[int(pil)-1])+"\"")    
                 subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
                 subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
@@ -97,11 +139,12 @@ def playy():
                 scann()
             if pil == "info":
                 os.system("termux-media-player info")
-            if pil == "loop":
+            if pil == "loop": frayed()
+            if pil[5:].isdigit():
+                nomer.append(pil[5:])
                 pllayed()
-                print("ooi")
             if pil == "help":
-                names = """
+                print("""
                     pause: pause music
                     resume: resumed your last music
                     exit: exit media-player
@@ -109,12 +152,11 @@ def playy():
                     resc: re-scan storage path
                     info: check music played
                     loop: looping the music
-                """
-                print(names)
+                    loop (number): looping music from number start
+                """)
     except KeyboardInterrupt:
-        print("thank you!! \n\t termux-media-player stop for stop the music")
+        print("thank you!! \n\t termux-media-player ")
+        os.system("termux-media-player pause")
         exit()
-        #os.system("termux-media-player stop")
-    except IndexError:
+    except IndexError:    
         print("\n\n\tYour input out of range")
-        playy()

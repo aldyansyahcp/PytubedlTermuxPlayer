@@ -1,5 +1,6 @@
 import os, subprocess
-import sys, re, time
+import sys, re, time, datetime
+
 
 global nomer
 nomer = []
@@ -8,25 +9,27 @@ def pllayed():
         print("="*60)
         print("\n\n\tPlaying music loop\n\tCTRL+C for exit\n\tMusic is looping now\n\n")
         print("="*60)
-        for i in baca()[int(nomer[0])-1:]:
-            nomer.clear()
+        ns = nomer[0]
+        for i,x in enumerate(baca()[int(ns)-1:],start=1):
+            print(f"Played music start from {x}\nto next music {baca()[int(ns)-1:][i]}")
+            os.popen("termux-media-player play \""+x+"\"")
+            subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
+            subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
             print("\nTime sleep",limit())
-            print(f"Played music start from {i}\nto last music {baca()[len(baca())-1]}")
-            os.popen("termux-media-player play \""+i+"\"")
-            subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
-            subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
+            nomer.clear()
             for i in range(limit()):
                 time.sleep(1)
+
 def frayed():
         print("="*60)
         print("\n\n\tPlaying music loop\n\tCTRL+C for exit\n\tMusic is looping now\n\n")
         print("="*60)
-        for i in baca():
-            print("Time sleep",limit())
-            print(f"Played music from {i} \nto last music {baca()[len(baca())-1]}")
-            os.popen("termux-media-player play \""+i+"\"")
+        for i,x in enumerate(baca(),start=1):
+            print(f"Played music from {x} \nto next music {baca()[i]}")
+            os.popen("termux-media-player play \""+x+"\"")
             subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
             subprocess.call("termux-media-player info > source/lists/info.xx",shell=True)
+            print("\nTime sleep",limit())
             for i in range(limit()):
                 time.sleep(1)
 
@@ -61,7 +64,7 @@ def scann():
         os.system("find -L /storage/sdcard1 -type f -ipath '*.mp3' >>source/list/mp3.list")
         print("scan compeleto")
     input("Please enter to continued...")
-    runn()                                                                                 
+    runn()  
     sorted()
 
 def getlastm():
@@ -105,11 +108,11 @@ def playy():
     try:
         pp = True
         while pp:
-            print("""
+            print(f"""
             ▀█▀ █▀█ █▀█ █░░ ▄▀█ █▄█
             ░█░ █▀▄ █▀▀ █▄▄ █▀█ ░█░
-            22-oct-22{aldyansyahcp}
-            
+            {datetime.datetime.now().strftime('%D %R%p')}
+            (aldyansyahcp)-22oct22
             """)
             for n,i in enumerate(runn(),start=1):
                 print(f"{n}. {i}")
@@ -130,7 +133,6 @@ def playy():
             if pil == "exit":
                 os.system("termux-media-player stop")
                 pp == False
-                sys.exit()
             if pil == "back":
                 os.system("python yts.py")
             if pil == "resc":
@@ -156,5 +158,6 @@ def playy():
         print("thank you!! \n\t termux-media-player ")
         os.system("termux-media-player pause")
         exit()
-    except IndexError:    
+    except IndexError:  
         print("\n\n\tYour input out of range")
+        playy()

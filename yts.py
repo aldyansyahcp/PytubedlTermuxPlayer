@@ -9,7 +9,7 @@
 #yang penting udut selalu redi yekan
 #kejarlah semua keingin tahuanmu jangan yg keingin tempeanmu su
 #thanks for me, for anything about myself, illbe stay standing in here
-import pytube, time
+import pytube, time, datetime
 from os import system as ss
 from source.ytdownload import dlaud, dlvid, played
 from source.ply import plls
@@ -45,12 +45,13 @@ def main():
     
     █▀▄ █▀█ █░█░█ █▄░█ █░░ █▀█ ▄▀█ █▀▄ █▀▀ █▀█
     █▄▀ █▄█ ▀▄▀▄▀ █░▀█ █▄▄ █▄█ █▀█ █▄▀ ██▄ █▀▄
-    {22-oct-22}                  {aldyansyahcp}
+    {}                  {}
+    {}
     \n\t1.Download lagu/video dari link
     \n\t2.Download lagu/video dari playlist
     \n\t3.Download lagu/video dari search query
     \n\t4.Play some music from download playlists
-    """)
+    """.format("22-oct22","aldyansyahcp",datetime.datetime.now().strftime("%D %R%p")))
     try:
         d = int(input("\n\tpilih no? "))
         if d == 1:
