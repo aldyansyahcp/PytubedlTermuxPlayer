@@ -5,7 +5,7 @@ from source.pplay import getlists
 
 def dlaud(url):
     yu = yt(url)
-    aul = yu.streams.get_audio_only(); karak = "([+-_&$''#@¥{}] )|:"
+    aul = yu.streams.get_audio_only(); karak = "([+-_&$''#@¥,{}] /)|:"
     nam = "{}.mp3".format(yu.title)
     for i in karak:
         nam = nam.replace(i, "")
@@ -38,10 +38,11 @@ def dlaud(url):
 def played():
         print("\n\t---TERMUX-API REQUIRED---")
         if not os.path.isfile(os.environ["PREFIX"]+"/bin/termux-media-player"):
-            print("You must install Termux-Api\n install from F-Droid")
-            pp = input("Want to Install termux-api? y/n").lower()
+            print("\n\tYou must install Termux-Api\n install from F-Droid")
+            pp = input("\n\tWant to Install termux-api? y/n: ").lower()
             if pp == "y":
-                url = "https://f-droid.org/repo/com.termux.api_51.apk"; print(url,"Install termux-api & /n input command $termux-setup-storage Accept acces sdcard")
+                url = "https://f-droid.org/repo/com.termux.api_51.apk"
+                print("First Install termux-api & \nopen termux and input command in termux $pkg install termux-api -y \n then input command $termux-setup-storage Accept acces sdcard")
                 os.system("xdg-open "+url)
             else:
                 os.system("python3 yts.py")
@@ -50,7 +51,7 @@ def played():
             
 def dlvid(url):
     yu = yt(url)
-    hr = yu.streams.get_highest_resolution(); karak = "([''+-_&$#@¥{}] )|:"
+    hr = yu.streams.get_highest_resolution(); karak = "([''+-_&$#@,¥{}] /)|:"
     #hrz = hr.url
     nam = "{}.mp4".format(yu.title)
     for i in karak:
